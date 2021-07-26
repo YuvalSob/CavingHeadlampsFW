@@ -1,5 +1,5 @@
 # CavingHeadlampsFW
-Here you can find all my FW for caving headlamps (See FW_INDEX file for a detailed description)
+Here you can find all my FW for caving headlamps (See [FW_INDEX.md](FW_INDEX.md) file for a detailed description)
 
 All these FW were written for my personal use for my or my freinds caving headlamps.
 While writing the FW I based on the work of great BLF (https://budgetlightforum.com/) members : 

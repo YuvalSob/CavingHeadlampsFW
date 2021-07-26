@@ -44,6 +44,7 @@
  * VOLTAGE
  *      Before using this FW it is reccomanded to burn my battarey clibration FW to your light in order to 
  *      get the voltage levels reading and change the code acordingly 
+ *      (https://github.com/YuvalSob/CavingHeadlampsFW/blob/main/HelloWorld!/ADC.ino)
  */
 
 #include <avr/io.h>

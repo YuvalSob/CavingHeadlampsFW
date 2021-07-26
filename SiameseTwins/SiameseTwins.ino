@@ -56,7 +56,7 @@
 #define ADC_PRSCL   0x06    // clk/64
 
 // Define valuse for Battery Check
-// These valued measured using TotKeeper battcheck program
+// These valued measured using TotKeeper ADC.ino program
 #define V3 170 // ADC reading for V=3.9v 
 #define V2 160 // ADC reading for V=3.7v
 #define V1 155 // ADC reading for V=3.6v

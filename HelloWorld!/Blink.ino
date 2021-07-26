@@ -1,4 +1,13 @@
-/* A very basic program to blink 3 LEDS */
+/* A very basic program to blink 3 LEDS 
+
+ *                      ---
+ *                    -|   |- VCC
+ *                    -|   |- 
+ *                    -|   |- LED6 -> resistor -> GND
+ *               GND  -|   |- LED5 -> resistor -> GND
+ *                      --- 
+
+*/
  
 #include <avr/io.h>
 #include <util/delay.h>

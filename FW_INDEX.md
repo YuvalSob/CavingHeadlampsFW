@@ -18,9 +18,6 @@ Switch type: Single momentary switch connected to Star4/Pin2/PB3 (need to cut ou
 8. Very low moon mode for emergency 
 
 
-
-
-
 ## [DualDriver](https://github.com/YuvalSob/CavingHeadlampsFW/tree/main/DualDriver)
 
 FW for an Headlamp with 2 drivers and 2 momentary switches 

@@ -5,6 +5,7 @@
 FW for an Headlamp with single driver and 2 PWM channels (Flood + Spot) 
 Driver type: Nanjg 105c (Attiny13A + 8*AMC7135)
 Switch type: Single momentary switch connected to Star4/Pin2/PB3 (need to cut outer ring)
+Slave board: 8*AMC7135 connected to Star2/Pin5/PB0 (need to cut outer ring)
 
 Features:
 ---------
@@ -24,11 +25,11 @@ Medium press - Turbo Spot -> Low Spot -> Torbo Flood -> Turbo Spot -> .....
 Long press - Turn off -> Lock
 Medium press (from off) - Battery check (automatic go to Moon)
 
-                    ---
-                  -|   |- VCC
-  Momentary Switch-|   |- Voltage ADC
-                  -|   |- PWM LED
-              GND -|   |- 
-                    ---
+                      ---
+                    -|   |- VCC
+    Momentary Switch-|   |- Voltage ADC
+         Colored LED-|   |- PWM Spot
+                GND -|   |- PWM Food
+                      ---
                     
                     

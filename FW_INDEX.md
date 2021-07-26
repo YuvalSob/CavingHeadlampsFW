@@ -1,6 +1,5 @@
 # FW Index
-## DualDriver
-https://github.com/YuvalSob/CavingHeadlampsFW.git
+## [DualDriver](https://github.com/YuvalSob/CavingHeadlampsFW.git)
 
 FW for an Headlamp with 2 drivers and 2 momentary switches 
 

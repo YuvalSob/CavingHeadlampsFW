@@ -85,8 +85,8 @@
 // Define timing
 #define SEC 100 // each main loop cycle has delay(10) so hundred cycles are 100*10=1000 delay = 1 sec
 
-#define LOW_BATT_LVL 98 // This value is measured using another program
-#define CUT_OFF_LVL 80 // This value is measured using another program
+#define LOW_BATT_LVL 98 // This value is measured using another program (https://github.com/YuvalSob/CavingHeadlampsFW/blob/main/HelloWorld!/ADC.ino)
+#define CUT_OFF_LVL 80 // This value is measured using another program  (https://github.com/YuvalSob/CavingHeadlampsFW/blob/main/HelloWorld!/ADC.ino) 
 
 //**********************************************
 //            check_batt()
@@ -108,7 +108,6 @@ void mblink (int times, long on_time, long off_time){
 //            check_batt()
 //**********************************************
 // Blinks if battery level is low
-// Value for low level can be measured using my bat_voltage program 
 void check_batt() {
   long voltage = 0;
   int i;

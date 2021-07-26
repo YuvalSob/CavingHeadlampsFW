@@ -1,0 +1,34 @@
+ * *****************************************************************************
+ * TODO: known bug no sleep mode - need to take out bettaries while not in use * 
+ * *****************************************************************************
+
+FW for an Headlamp with single driver and 2 PWM channels (Flood + Spot) 
+Driver type: Nanjg 105c (Attiny13A + 8*AMC7135)
+Switch type: Single momentary switch connected to Star4/Pin2/PB3 (need to cut outer ring)
+
+Features:
+---------
+1. 2 separate PWM channels to control 2 LEDs
+2. Step down from Turbo mode after 30 sec 
+3. Battery check mode (using blinks)
+4. Low voltage indication usin colores LED connected to Star3/Pin3/PB4 (need to cut outer ring)
+5. Very low voltage protection (turned off but can be turen on again)
+6. Lock off mode to prevent accidental turn on
+7. Auto lock after 5 min in of
+8. Very low moon mode for emergency 
+  
+UI:
+---
+Short press - Turn on (Medium Flood) -> High Flood -> Low Flood -> Medium Flood -> .....  
+Medium press - Turbo Spot -> Low Spot -> Torbo Flood -> Turbo Spot -> .....
+Long press - Turn off -> Lock
+Medium press (from off) - Battery check (automatic go to Moon)
+
+                    ---
+                  -|   |- VCC
+  Momentary Switch-|   |- Voltage ADC
+                  -|   |- PWM LED
+              GND -|   |- 
+                    ---
+                    
+                    

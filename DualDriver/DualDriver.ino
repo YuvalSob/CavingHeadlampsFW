@@ -61,18 +61,32 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-// Define PWM level for LED
-#define M0 0   // Off
-#define M1 10  // Low ~40Lm
-#define M2 50  // Medium ~200Lm
-#define M3 100 // High ~400Lm
-#define M4 255 // Turbo ~1000Lm
+#define TURBO 255
+
+// #define RAMP_DOWN // comment/uncomment 
+
+#ifndef RAMP_DOWN
+  // Define PWM level for LED (default is rampup)
+  #define M0 0   // Off
+  #define M1 10  // Low ~40Lm
+  #define M2 50  // Medium ~200Lm
+  #define M3 100 // High ~400Lm
+  #define M4 TURBO // Turbo ~1000Lm
+#else
+  // Define PWM level for LED for ramp down (need #define RAMP_DOWN)
+  #define M0 0   // Off
+  #define M4 10  // Low ~40Lm
+  #define M3 50  // Medium ~200Lm
+  #define M2 100 // High ~400Lm
+  #define M1 TURBO // Turbo ~1000Lm
+#endif
+
 
 // Define timing
-#define SEC 10 // each main loop cycle has delay(10) so hundred cycles are 100*10=1000 delay = 1 sec
+#define SEC 100 // each main loop cycle has delay(10) so hundred cycles are 100*10=1000 delay = 1 sec
 
-#define LOW_BATT_LVL 102 // This value is measured using another program
-#define CUT_OFF_LVL 90 // This value is measured using another program
+#define LOW_BATT_LVL 98 // This value is measured using another program
+#define CUT_OFF_LVL 80 // This value is measured using another program
 
 //**********************************************
 //            check_batt()
@@ -115,7 +129,7 @@ void check_batt() {
     ADCSRA |= (1 << ADSC); // Start conversion
     while (ADCSRA & (1 << ADSC)); // Wait for completion
 
-    _delay_ms(50);
+    delay(50);
     voltage += ADCH; // Add conversion to sum
   }
 
@@ -160,7 +174,7 @@ ISR (PCINT0_vect){
   {
     delay(10);
   } 
-  OCR0B = M1; // Turn on low level
+  OCR0B = M1; // Turn on 1st level
 }
 
 //**********************************************
@@ -276,9 +290,9 @@ int main() {
       }
 
       // If turbo
-      if (OCR0B == M4){
+      if (OCR0B == TURBO){
         turbo_counter++;
-        if (turbo_counter == 30*SEC)
+        if (turbo_counter == 50*SEC)
         {
           OCR0B = M2; // Step down from Turbo
         }
@@ -287,7 +301,7 @@ int main() {
 
     press_len = 0; // reset 
     short_press = true;
-    OCR0B = M1; // Start on low 
+    OCR0B = M1; // Start on 1st mode 
 
     // Ramp up 
     while((PINB&8) == 0) // // Wait for button release (PB2 pulled up) 
@@ -304,8 +318,10 @@ int main() {
 
     // Turn of and save power        
     if (short_press) {
+      OCR0B = M0;
+      delay(10);
       msleep();
-      // ********* Continu after wake up ********
+      // ********* Continu here after wake up ********
     }
   } // forever
 } // main

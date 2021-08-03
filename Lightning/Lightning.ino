@@ -14,6 +14,8 @@
 
 */
 
+#include <avr/io.h>
+#include <util/delay.h>
 
 #define MAX_LEVEL 255
 volatile uint8_t pseudo_rand_seed = 0;

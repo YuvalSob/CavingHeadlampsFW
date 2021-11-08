@@ -89,7 +89,7 @@
 #define CUT_OFF_LVL 80 // This value is measured using another program  (https://github.com/YuvalSob/CavingHeadlampsFW/blob/main/HelloWorld/ADC.ino) 
 
 //**********************************************
-//            check_batt()
+//                 mblink()
 //**********************************************
 // Function to blink the LED (used for low battery indication  
 void mblink (int times, long on_time, long off_time){

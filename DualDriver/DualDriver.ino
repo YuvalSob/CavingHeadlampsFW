@@ -293,6 +293,7 @@ int main() {
         turbo_counter++;
         if (turbo_counter == 50*SEC)
         {
+          turbo_counter = 0;
           OCR0B = M2; // Step down from Turbo
         }
       }
@@ -315,7 +316,7 @@ int main() {
       }
     }
 
-    // Turn of and save power        
+    // Turn off and save power        
     if (short_press) {
       OCR0B = M0;
       delay(10);

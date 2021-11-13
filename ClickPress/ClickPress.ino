@@ -22,9 +22,13 @@
  *  
  *  UI:
  *  ---
- *  Short press - turn on/off 
- *  Long press - ramps up from low
- *  
+ *  Short press - move between modes: LOW -> MED -> HIGH -> LOW ... 
+ *  Long press - turn off
+ *  Double click - battery check
+ *  Short press -> Long press - Spot/Flood Turbo (each time alternate beam) 
+ *  Short press -> Long press (keep pressed) - Stepped ramp down from Turbo
+ *  Triple click - unlock
+ *
  *                     ---
  *                   -|   |- VCC
  *   Momentary Switch-|   |- Voltage ADC

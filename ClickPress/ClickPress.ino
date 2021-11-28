@@ -22,13 +22,9 @@
  *  
  *  UI:
  *  ---
- *  Short press - move between modes: LOW -> MED -> HIGH -> LOW ... 
- *  Long press - turn off
- *  Double click - battery check
- *  Short press -> Long press - Spot/Flood Turbo (each time alternate beam) 
- *  Short press -> Long press (keep pressed) - Stepped ramp down from Turbo
- *  Triple click - unlock
- *
+ *  Short press - turn on/off 
+ *  Long press - ramps up from low
+ *  
  *                     ---
  *                   -|   |- VCC
  *   Momentary Switch-|   |- Voltage ADC
@@ -72,15 +68,15 @@
 #define HOT   180  // ~600/700Lm
 #define M_HIGH  130  // ~400Lm
 #define M_MED   50   // ~160Lm
-#define M_LOW   10   // ~30Lm
+#define M_LOW   20   // ~30Lm
 #define M_OFF 0
 
 // Define valuse for Battery Check
 // These values were measured using my battery calibrating FW
-#define V3 170 // ADC reading for V=3.9v 
-#define V2 160 // ADC reading for V=3.7v
-#define V1 155 // ADC reading for V=3.6v
-#define V0 146 // ADC reading for V=3.4v
+#define V3 172 // ADC reading for V=3.9v 
+#define V2 163 // ADC reading for V=3.7v
+#define V1 157 // ADC reading for V=3.6v
+#define V0 148 // ADC reading for V=3.4v
 
 
 
@@ -95,7 +91,7 @@
 //            mblink()
 //**********************************************
 // Function to blink the LED (used for low battery indication  
-void mblink (byte times, byte on_time, byte off_time){
+void mblink (byte times, byte on_time, byte off_time, bool after){
   byte curr_pwm_a = OCR0A; // saving the current brightness  
   byte lvl = OCR0A == M_OFF ? M_MED : OCR0A; // brightness is current unless it is off  
    
@@ -108,7 +104,7 @@ void mblink (byte times, byte on_time, byte off_time){
     OCR0A = M_OFF;       // Turn LED off
     delay(off_time);  // Wait off time
   }
-  OCR0A = curr_pwm_a; // restore brightness  
+  if (after) OCR0A = curr_pwm_a; // restore brightness  
 }
 
 
@@ -156,7 +152,7 @@ void check_batt() {
   long voltage = meas_batt();
 
   // blink if low voltage 
-  if (voltage < M_LOW_BATT_LVL) mblink(4, 150, 150);
+  if (voltage < M_LOW_BATT_LVL) mblink(4, 150, 150, true);
   if (voltage < CUT_M_OFF_LVL) {
     OCR0A = M_OFF; // Turn off for very low voltage
     OCR0B = M_OFF; // Turn off for very low voltage
@@ -213,10 +209,6 @@ ISR (PCINT0_vect){
   {
     delay(10);
   } 
-
-  
-  
-  //OCR0A = M_LOW; // Turn on 1st level
 }
 
 //**********************************************
@@ -342,7 +334,6 @@ int main() {
       {
         // Sleep after 1 min in lock with no unlock try 
         if (lock) {
-          mblink(2, 150, 150);
           delay(10);
           msleep();
           // ********* Continue here after wake up ********
@@ -373,7 +364,7 @@ int main() {
         lock_counter++;
         if (lock_counter == 10*SEC) { // TODO 60
           lock = true;
-          mblink(1, 150, 150);
+          mblink(1, 150, 150, true);
           delay(10);
           msleep();
           // ********* Continue here after wake up ********
@@ -446,7 +437,6 @@ int main() {
     else {
       // Triple click
       if (triple_click) {
-        mblink (10, 50,150);
         triple_click = false;
         lock = false;
         OCR0A = M_LOW;
@@ -457,7 +447,7 @@ int main() {
           double_click = false;
           triple_click = true;
           if (lock == false) {
-            mblink (batt_lvl(), 100, 200);      
+            mblink (batt_lvl(), 200, 1000, false); 
           }
         }
         else{
